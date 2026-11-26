@@ -712,7 +712,12 @@ h4 {
 ========================================= */
 
 .journey-section {
-    background-color: var(--light-pink);
+background: linear-gradient(
+    to bottom,
+    var(--white) 0%,
+    var(--light-gray) 25%,
+    var(--light-gray) 100%
+);
 }
 
 .timeline {
@@ -1539,6 +1544,13 @@ ACCESSIBILITY
    Assignment 3 - GitHub Repositories
 ======================================== */
 
+#github {
+    background: linear-gradient(
+        to bottom,
+        var(--light-gray) 0px,
+        var(--white) 120px
+    );
+}
 .github-grid {
     display: grid;
     grid-template-columns:
