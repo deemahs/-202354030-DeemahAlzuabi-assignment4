@@ -1,0 +1,23 @@
+# Operating system files
+.DS_Store
+Thumbs.db
+__MACOSX/
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Dependencies
+node_modules/
+
+# Temporary files
+*.log
+*.tmp
+
+# Private AI evidence
+*-ai-evidence.zip
+conversations/
+artifacts/
