@@ -76,50 +76,47 @@ themeButton.addEventListener("click", function () {
 // ========================================
 
 function toggleMenu(isOpen) {
-    navLinks.classList.toggle("active", isOpen);
-    menuToggle.classList.toggle("active", isOpen);
+  navLinks.classList.toggle("active", isOpen);
+  menuToggle.classList.toggle("active", isOpen);
 
-    menuToggle.setAttribute("aria-expanded", String(isOpen));
+  menuToggle.setAttribute("aria-expanded", String(isOpen));
 
-    menuToggle.setAttribute(
-        "aria-label",
-        isOpen ? "Close navigation menu" : "Open navigation menu"
-    );
+  menuToggle.setAttribute(
+    "aria-label",
+    isOpen ? "Close navigation menu" : "Open navigation menu",
+  );
 }
 
 // Open or close the mobile menu
 menuToggle.addEventListener("click", function () {
-    const isOpen = !navLinks.classList.contains("active");
-    toggleMenu(isOpen);
+  const isOpen = !navLinks.classList.contains("active");
+  toggleMenu(isOpen);
 });
 
 // Close the menu when a navigation link is selected
 navLinks.querySelectorAll("a").forEach(function (link) {
-    link.addEventListener("click", function () {
-        toggleMenu(false);
-    });
+  link.addEventListener("click", function () {
+    toggleMenu(false);
+  });
 });
 
 // Close the menu using the Escape key
 document.addEventListener("keydown", function (event) {
-    if (
-        event.key === "Escape" &&
-        navLinks.classList.contains("active")
-    ) {
-        toggleMenu(false);
-        menuToggle.focus();
-    }
+  if (event.key === "Escape" && navLinks.classList.contains("active")) {
+    toggleMenu(false);
+    menuToggle.focus();
+  }
 });
 
 // Reset the menu when switching to desktop
-window.matchMedia("(max-width: 650px)")
-    .addEventListener("change", function (event) {
-        if (!event.matches) {
-            toggleMenu(false);
-        }
-    });
+window
+  .matchMedia("(max-width: 650px)")
+  .addEventListener("change", function (event) {
+    if (!event.matches) {
+      toggleMenu(false);
+    }
+  });
 
-  
 // ========================================
 // Dynamic Project Filtering and Sorting
 // ========================================
@@ -419,3 +416,100 @@ backToTop.addEventListener("click", function () {
 
 // Set initial visibility based on the current scroll position
 backToTop.hidden = window.scrollY < 300;
+// ========================================
+// Animated Character - Scroll Parallax
+// ========================================
+
+const characterWrapper = document.querySelector(".character-wrapper");
+
+const characterImg = document.querySelector(".character-img");
+
+const characterGlow = document.querySelector(".character-glow");
+
+const aboutSection = document.getElementById("about");
+
+const prefersReducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)",
+).matches;
+
+function animateCharacterOnScroll() {
+  if (!characterWrapper || !aboutSection || prefersReducedMotion) {
+    return;
+  }
+
+  const rect = aboutSection.getBoundingClientRect();
+  const windowH = window.innerHeight;
+
+  let sectionProgress = (windowH - rect.top) / (windowH + rect.height);
+
+  sectionProgress = Math.max(0, Math.min(1, sectionProgress));
+
+  let opacity = 1;
+  let translateY = 0;
+  let scale = 1;
+
+  if (sectionProgress < 0.2) {
+    // Stage 1: Entrance
+    const t = sectionProgress / 0.2;
+
+    opacity = t;
+    scale = 0.9 + 0.1 * t;
+    translateY = 30 * (1 - t);
+  } else if (sectionProgress < 0.6) {
+    // Stage 2: Parallax
+    const t = (sectionProgress - 0.2) / 0.4;
+
+    translateY = -15 * t;
+  } else if (sectionProgress < 0.85) {
+    // Stage 3: Floating
+    translateY = -15;
+
+    characterWrapper.classList.add("floating");
+  } else {
+    // Stage 4: Transition out
+    const t = (sectionProgress - 0.85) / 0.15;
+
+    translateY = -15 - 20 * t;
+    opacity = 1 - 0.3 * t;
+    scale = 1 - 0.03 * t;
+
+    characterWrapper.classList.remove("floating");
+  }
+
+  if (sectionProgress < 0.6) {
+    characterWrapper.classList.remove("floating");
+  }
+
+  characterWrapper.style.opacity = opacity;
+
+  characterWrapper.style.transform = `translateY(${translateY}px) scale(${scale})`;
+
+  if (characterGlow) {
+    characterGlow.style.opacity = opacity * 0.6;
+  }
+}
+
+let tickingChar = false;
+
+window.addEventListener(
+  "scroll",
+  function () {
+    if (!tickingChar) {
+      window.requestAnimationFrame(function () {
+        animateCharacterOnScroll();
+        tickingChar = false;
+      });
+
+      tickingChar = true;
+    }
+  },
+  { passive: true },
+);
+
+window.addEventListener("load", animateCharacterOnScroll);
+window.addEventListener("resize", animateCharacterOnScroll);
+
+if (prefersReducedMotion && characterWrapper) {
+  characterWrapper.style.opacity = "1";
+  characterWrapper.style.transform = "none";
+}
