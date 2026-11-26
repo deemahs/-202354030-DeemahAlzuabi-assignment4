@@ -513,3 +513,196 @@ if (prefersReducedMotion && characterWrapper) {
   characterWrapper.style.opacity = "1";
   characterWrapper.style.transform = "none";
 }
+
+
+/* =========================================
+   5. JOURNEY TIMELINE — SVG SCROLL ANIMATION
+   ========================================= */
+
+var timelineSvg = document.getElementById('timelineSvg');
+var timelinePathBg = document.getElementById('timelinePathBg');
+var timelinePathFill = document.getElementById('timelinePathFill');
+var timelineIndicator = document.getElementById('timelineIndicator');
+var timelineEl = document.getElementById('timeline');
+var milestones = document.querySelectorAll('.milestone');
+
+
+var nodeAbsoluteYs = [];
+var nodeRelativeYs = [];
+var totalPathLength = 0;
+
+function buildTimelinePath() {
+    if (!timelineSvg || !timelineEl || milestones.length === 0) return 0;
+
+    var timelineRect = timelineEl.getBoundingClientRect();
+    var svgW = timelineRect.width;
+    var svgH = timelineRect.height;
+
+    // Set viewBox
+    timelineSvg.setAttribute('viewBox', '0 0 ' + svgW + ' ' + svgH);
+    timelineSvg.style.width = svgW + 'px';
+    timelineSvg.style.height = svgH + 'px';
+
+  
+    var points = [];
+    nodeAbsoluteYs = [];
+    nodeRelativeYs = [];
+
+    milestones.forEach(function (ms) {
+        var node = ms.querySelector('.milestone-node');
+        if (!node) return;
+
+        var nodeRect = node.getBoundingClientRect();
+
+        var x = nodeRect.left - timelineRect.left + nodeRect.width / 2;
+        var y = nodeRect.top - timelineRect.top + nodeRect.height / 2;
+
+        points.push({ x: x, y: y });
+        nodeRelativeYs.push(y);
+
+        nodeAbsoluteYs.push(
+            nodeRect.top + window.scrollY + nodeRect.height / 2
+        );
+    });
+
+    if (points.length < 2) return 0;
+    var d = 'M ' + points[0].x + ' ' + points[0].y;
+
+    for (var i = 0; i < points.length - 1; i++) {
+        var p0 = points[i === 0 ? i : i - 1];
+        var p1 = points[i];
+        var p2 = points[i + 1];
+        var p3 = points[i + 2 < points.length ? i + 2 : i + 1];
+
+        var cp1x = p1.x + (p2.x - p0.x) / 6;
+        var cp1y = p1.y + (p2.y - p0.y) / 6;
+        var cp2x = p2.x - (p3.x - p1.x) / 6;
+        var cp2y = p2.y - (p3.y - p1.y) / 6;
+
+        d += ' C ' + cp1x + ' ' + cp1y + ', ' +
+            cp2x + ' ' + cp2y + ', ' +
+            p2.x + ' ' + p2.y;
+    }
+
+    timelinePathBg.setAttribute('d', d);
+    timelinePathFill.setAttribute('d', d);
+
+    
+    var pathLength = timelinePathFill.getTotalLength();
+
+    timelinePathFill.style.strokeDasharray = pathLength;
+    timelinePathFill.style.strokeDashoffset = pathLength;
+
+    return pathLength;
+}
+
+// On scroll
+function animateTimelineOnScroll() {
+    if (!timelineEl || !timelinePathFill || totalPathLength === 0) return;
+    if (nodeAbsoluteYs.length < 2) return;
+
+    if (prefersReducedMotion) {
+        milestones.forEach(function (ms) {
+            ms.classList.add("revealed", "active");
+        });
+
+        timelinePathFill.style.strokeDashoffset = 0;
+        return;
+    }
+    var windowH = window.innerHeight;
+    var scrollY = window.scrollY;
+
+    // Activation point: viewport center
+    var activationY = scrollY + windowH * 0.5;
+
+    // First and last node absolute Y positions
+    var firstNodeY = nodeAbsoluteYs[0];
+    var lastNodeY = nodeAbsoluteYs[nodeAbsoluteYs.length - 1];
+    var span = lastNodeY - firstNodeY;
+
+    if (span <= 0) return;
+
+    // Calculate progress: 0 when activation reaches first node, 1 at last node
+    var progress = (activationY - firstNodeY) / span;
+    progress = Math.max(0, Math.min(1, progress));
+
+    // Animate fill
+    var offset = totalPathLength * (1 - progress);
+    timelinePathFill.style.strokeDashoffset = offset;
+
+    // Position the circle indicator
+    if (timelineIndicator && progress > 0) {
+        try {
+            var point = timelinePathFill.getPointAtLength(
+                totalPathLength * progress
+            );
+
+            timelineIndicator.setAttribute('cx', point.x);
+            timelineIndicator.setAttribute('cy', point.y);
+            timelineIndicator.style.r = progress > 0.02 ? '7' : '5';
+            timelineIndicator.classList.add('visible');
+
+        } catch (_) {}
+
+    } else if (timelineIndicator) {
+        timelineIndicator.classList.remove('visible');
+    }
+
+    // Activate milestones based on SVG progress position
+    // Each milestone is activated when the SVG line has reached its node
+    milestones.forEach(function (ms, idx) {
+        if (idx >= nodeAbsoluteYs.length) return;
+
+        var nodeProgress = (nodeAbsoluteYs[idx] - firstNodeY) / span;
+
+        if (progress >= nodeProgress - 0.01) {
+            ms.classList.add('revealed', 'active');
+        }
+    });
+}
+
+/**
+ * Initialise the timeline. Build path, then animate.
+ */
+function initTimeline() {
+    totalPathLength = buildTimelinePath() || 0;
+    animateTimelineOnScroll();
+}
+
+// Use ResizeObserver for dynamic recalculation
+if ('ResizeObserver' in window && timelineEl) {
+    var timelineResizeObserver = new ResizeObserver(function () {
+        totalPathLength = buildTimelinePath() || 0;
+        animateTimelineOnScroll();
+    });
+
+    timelineResizeObserver.observe(timelineEl);
+}
+
+// Also rebuild on resize for orientation changes / fallback
+var resizeTimer;
+
+window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+
+    resizeTimer = setTimeout(function () {
+        totalPathLength = buildTimelinePath() || 0;
+        animateTimelineOnScroll();
+    }, 200);
+});
+
+// Scroll handler (uses rAF for performance, passive listener)
+var ticking = false;
+
+window.addEventListener('scroll', function () {
+    if (!ticking) {
+        window.requestAnimationFrame(function () {
+            animateTimelineOnScroll();
+            ticking = false;
+        });
+
+        ticking = true;
+    }
+}, { passive: true });
+
+window.addEventListener("load", initTimeline);

@@ -25,6 +25,7 @@
         <ul class="nav-links" id="navLinks">
           <li><a href="#home">Home</a></li>
           <li><a href="#about">About</a></li>
+          <li><a href="#journey">Journey</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="#github">GitHub</a></li>
           <li><a href="#contact">Contact</a></li>
@@ -214,6 +215,151 @@
                 Explore My Projects
                 <span>→</span>
               </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================
+           JOURNEY TIMELINE
+      ========================== -->
+      <section id="journey" class="section journey-section">
+        <div class="container">
+          <div class="section-heading">
+            <p class="section-label">My Path</p>
+            <h2>The Journey So Far</h2>
+            <div class="title-line"></div>
+            <p class="section-description">
+              Every step tells a story &mdash; from first code to international
+              research.
+            </p>
+          </div>
+
+          <div class="timeline" id="timeline">
+            <!-- SVG path is drawn dynamically by JavaScript -->
+            <svg
+              class="timeline-svg"
+              id="timelineSvg"
+              aria-hidden="true"
+              preserveAspectRatio="none"
+            >
+              <path class="timeline-path-bg" id="timelinePathBg" fill="none" />
+              <path
+                class="timeline-path-fill"
+                id="timelinePathFill"
+                fill="none"
+              />
+              <circle
+                class="timeline-indicator"
+                id="timelineIndicator"
+                r="5"
+                cx="0"
+                cy="0"
+              />
+            </svg>
+
+            <!-- Milestone 1 -->
+            <div class="milestone" data-side="left">
+              <div class="milestone-node" aria-hidden="true"></div>
+              <div class="milestone-card">
+                <span class="milestone-date">Aug 2023</span>
+                <span class="milestone-category">Academic</span>
+                <h3>Began My CS Journey</h3>
+                <p>
+                  Started Bachelor of Science in Computer Science at KFUPM,
+                  exploring the foundations of programming and software
+                  development.
+                </p>
+              </div>
+            </div>
+
+            <!-- Milestone 2 -->
+            <div class="milestone" data-side="right">
+              <div class="milestone-node" aria-hidden="true"></div>
+              <div class="milestone-card">
+                <span class="milestone-date">Oct 2024</span>
+                <span class="milestone-category">Leadership</span>
+                <h3>First Leadership Role</h3>
+                <p>
+                  Became Marketing Committee Leader at the KFUPM Female Computer
+                  Club, leading campaigns and co-organizing the Solution
+                  Hackathon in collaboration with UCL.
+                </p>
+              </div>
+            </div>
+
+            <!-- Milestone 3 -->
+            <div class="milestone" data-side="left">
+              <div class="milestone-node" aria-hidden="true"></div>
+              <div class="milestone-card">
+                <span class="milestone-date">Nov 2024</span>
+                <span class="milestone-category">Teaching</span>
+                <h3>Becoming a Mentor</h3>
+                <p>
+                  Served as a Peer Assistant for ICS104, helping fellow students
+                  understand Python programming and develop effective
+                  problem-solving skills.
+                </p>
+              </div>
+            </div>
+
+            <!-- Milestone 4 -->
+            <div class="milestone" data-side="right">
+              <div class="milestone-node" aria-hidden="true"></div>
+              <div class="milestone-card">
+                <span class="milestone-date">Jun 2025</span>
+                <span class="milestone-category">Management</span>
+                <h3>Managing Real Projects</h3>
+                <p>
+                  Stepped into the role of Project Manager at KFUPM World,
+                  coordinating technical team initiatives, organizing workflows,
+                  and presenting updates to leadership.
+                </p>
+              </div>
+            </div>
+
+            <!-- Milestone 5 -->
+            <div class="milestone" data-side="left">
+              <div class="milestone-node" aria-hidden="true"></div>
+              <div class="milestone-card">
+                <span class="milestone-date">Jun 2026</span>
+                <span class="milestone-category">Research</span>
+                <h3>International Research</h3>
+                <p>
+                  Awarded the KFUPM Young Scholar Fellowship to conduct research
+                  at the University of Manchester, investigating software
+                  testing, formal verification, and AI-based approaches.
+                </p>
+              </div>
+            </div>
+
+            <!-- Milestone 6 -->
+            <div class="milestone" data-side="right">
+              <div class="milestone-node" aria-hidden="true"></div>
+              <div class="milestone-card">
+                <span class="milestone-date">Sep 2026</span>
+                <span class="milestone-category">Design</span>
+                <h3>Leading Design</h3>
+                <p>
+                  Currently leading the design team at Tuwaiq Club, KFUPM
+                  &mdash; managing assignments, overseeing visual designs, and
+                  integrating AI-assisted tools to enhance quality.
+                </p>
+              </div>
+            </div>
+
+            <!-- Milestone 7 -->
+            <div class="milestone milestone-future" data-side="left">
+              <div class="milestone-node" aria-hidden="true"></div>
+              <div class="milestone-card">
+                <span class="milestone-date">The Future</span>
+                <span class="milestone-category">Next Chapter</span>
+                <h3>The Journey Continues&hellip;</h3>
+                <p>
+                  Looking forward to new challenges, opportunities, and
+                  contributions in software engineering and beyond.
+                </p>
+              </div>
             </div>
           </div>
         </div>
