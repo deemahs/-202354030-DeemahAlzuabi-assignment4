@@ -73,28 +73,22 @@ h4 {
 
 .header {
     position: fixed;
-
     top: 0;
     left: 0;
-
     width: 100%;
-
-    background-color: rgba(255, 255, 255, 0.95);
-
+    background-color: rgba(255, 252, 250, 0.95);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
-
     z-index: 1000;
 }
 
 
 .navbar {
     width: 90%;
-    max-width: 1100px;
-
+    max-width: 1200px;
     height: 75px;
-
     margin: 0 auto;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -103,11 +97,11 @@ h4 {
 
 .logo {
     color: var(--black);
-
+    font-family: Georgia, 'Times New Roman', serif;
     font-size: 1.5rem;
     font-weight: 800;
-
     text-decoration: none;
+    z-index: 1001;
 }
 
 
@@ -118,29 +112,41 @@ h4 {
 
 .nav-links {
     display: flex;
-
-    gap: 30px;
-
+    gap: 28px;
     list-style: none;
 }
 
 
 .nav-links a {
     color: var(--black);
-
     text-decoration: none;
-
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     font-weight: 600;
-
+    position: relative;
     transition: color 0.2s;
 }
 
 
 .nav-links a:hover {
-    color: var(--pink);
+    color: var(--dark-pink);
 }
 
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    border-radius: 2px;
+    background-color: var(--pink);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after {
+    width: 100%;
+}
 
 .theme-button {
     width: 42px;
@@ -163,6 +169,50 @@ h4 {
     background-color: var(--light-pink);
 }
 
+/* Mobile Menu Button */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    width: 42px;
+    height: 42px;
+
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: var(--black);
+    border-radius: 2px;
+    transition: transform 0.3s ease,
+        opacity 0.3s ease;
+}
+
+.menu-toggle.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+.menu-toggle:focus-visible {
+    outline: 2px solid var(--dark-pink);
+    outline-offset: 3px;
+}
 
 /* =========================================
    PAGE 1 - HERO
@@ -500,7 +550,7 @@ h4 {
 
     gap: 8px;
 
-    color:  var(--dark-pink);
+    color: var(--dark-pink);
 
     font-weight: 700;
 
@@ -661,10 +711,11 @@ h4 {
     font-weight: 700;
 }
 
-.form-group input, .form-group textarea {
+.form-group input,
+.form-group textarea {
     width: 100%;
     padding: 13px 15px;
-    border: 1px solid  var(--border);
+    border: 1px solid var(--border);
     border-radius: 10px;
     background-color: var(--white);
     color: var(--black);
@@ -755,9 +806,6 @@ body.dark-mode .header {
 }
 
 
-
-
-
 body.dark-mode .footer {
     background-color: #141214;
     color: var(--black);
@@ -806,33 +854,52 @@ body.dark-mode .footer {
 @media (max-width: 650px) {
 
     .navbar {
-        height: auto;
-
-        min-height: 75px;
-
-        flex-wrap: wrap;
-
-        padding: 15px 0;
+        gap: 12px;
+        height: 75px;
     }
-
 
     .nav-links {
-        order: 3;
-
+        position: absolute;
+        top: 100%;
+        left: 0;
         width: 100%;
 
-        margin-top: 12px;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
 
-        justify-content: center;
+        padding: 25px 20px;
+        background-color: var(--white);
+        border-bottom: 1px solid var(--border);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 
-        gap: 18px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: opacity 0.3s ease,
+            transform 0.3s ease,
+            visibility 0.3s;
     }
 
+    .nav-links.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
 
     .nav-links a {
-        font-size: 0.85rem;
+        font-size: 1rem;
     }
 
+    .theme-button {
+        margin-left: auto;
+        flex-shrink: 0;
+    }
+
+    .menu-toggle {
+        display: flex;
+        flex-shrink: 0;
+    }
 
     .hero {
         padding-top: 150px;
@@ -1050,6 +1117,10 @@ ACCESSIBILITY
     .filter-btn {
         transition: none;
     }
+
+    .menu-toggle span, .nav-links, .nav-links a::after {
+        transition: none;
+    }
 }
 
 
@@ -1072,7 +1143,7 @@ ACCESSIBILITY
 
 #projectSort {
     padding: 10px 15px;
-    border: 1px solid  var(--border);
+    border: 1px solid var(--border);
     border-radius: 8px;
     background: var(--white);
     color: var(--black);
@@ -1081,7 +1152,7 @@ ACCESSIBILITY
 }
 
 #projectSort:focus-visible {
-    outline: 2px solid  var(--dark-pink);
+    outline: 2px solid var(--dark-pink);
     outline-offset: 2px;
 }
 
@@ -1109,7 +1180,7 @@ ACCESSIBILITY
 
 .github-card {
     padding: 25px;
-    border: 1px solid  var(--border);
+    border: 1px solid var(--border);
     border-radius: 12px;
     background: var(--white);
     color: var(--black);
@@ -1172,7 +1243,7 @@ ACCESSIBILITY
     padding: 10px 15px;
     border: 1px solid var(--border);
     border-radius: 8px;
-    background:  var(--white);
+    background: var(--white);
     color: var(--black);
     font: inherit;
     cursor: pointer;

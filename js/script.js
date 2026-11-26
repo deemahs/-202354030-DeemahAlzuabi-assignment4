@@ -4,6 +4,8 @@
 
 // Theme toggle button and form-related elements
 const themeButton = document.getElementById("themeButton");
+const menuToggle = document.getElementById("menuToggle");
+const navLinks = document.getElementById("navLinks");
 const contactForm = document.getElementById("contactForm");
 const formMessage = document.getElementById("formMessage");
 const year = document.getElementById("year");
@@ -69,6 +71,55 @@ themeButton.addEventListener("click", function () {
   }
 });
 
+// ========================================
+// Mobile Navigation
+// ========================================
+
+function toggleMenu(isOpen) {
+    navLinks.classList.toggle("active", isOpen);
+    menuToggle.classList.toggle("active", isOpen);
+
+    menuToggle.setAttribute("aria-expanded", String(isOpen));
+
+    menuToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation menu" : "Open navigation menu"
+    );
+}
+
+// Open or close the mobile menu
+menuToggle.addEventListener("click", function () {
+    const isOpen = !navLinks.classList.contains("active");
+    toggleMenu(isOpen);
+});
+
+// Close the menu when a navigation link is selected
+navLinks.querySelectorAll("a").forEach(function (link) {
+    link.addEventListener("click", function () {
+        toggleMenu(false);
+    });
+});
+
+// Close the menu using the Escape key
+document.addEventListener("keydown", function (event) {
+    if (
+        event.key === "Escape" &&
+        navLinks.classList.contains("active")
+    ) {
+        toggleMenu(false);
+        menuToggle.focus();
+    }
+});
+
+// Reset the menu when switching to desktop
+window.matchMedia("(max-width: 650px)")
+    .addEventListener("change", function (event) {
+        if (!event.matches) {
+            toggleMenu(false);
+        }
+    });
+
+  
 // ========================================
 // Dynamic Project Filtering and Sorting
 // ========================================
