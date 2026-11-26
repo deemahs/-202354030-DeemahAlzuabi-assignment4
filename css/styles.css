@@ -367,7 +367,26 @@ h4 {
     color: var(--white);
     border-color: var(--black);
 }
+/* Download CV Button */
 
+.cv-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: transparent;
+    color: var(--gold);
+    border-color: var(--gold);
+}
+
+.cv-btn:hover {
+    background-color: var(--gold);
+    color: #FFFFFF;
+}
+
+.cv-icon {
+    flex-shrink: 0;
+}
 
 /* =========================================
    SCROLL INDICATOR
