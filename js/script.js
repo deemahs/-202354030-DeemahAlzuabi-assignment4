@@ -237,7 +237,7 @@ async function loadGitHubRepos() {
   // Reset the UI before making a new request
   githubStatus.textContent = "Loading repositories...";
   githubRepos.replaceChildren();
-  retryGithub.hidden = true;
+  retryGithub.hidden = false;
   githubStats.hidden = true;
   githubStats.replaceChildren();
 
@@ -441,8 +441,6 @@ backToTop.hidden = window.scrollY < 300;
 
 const characterWrapper = document.querySelector(".character-wrapper");
 
-const characterImg = document.querySelector(".character-img");
-
 const characterGlow = document.querySelector(".character-glow");
 
 const aboutSection = document.getElementById("about");
@@ -544,8 +542,6 @@ var timelineIndicator = document.getElementById("timelineIndicator");
 var timelineEl = document.getElementById("timeline");
 var milestones = document.querySelectorAll(".milestone");
 
-var nodeAbsoluteYs = [];
-var nodeRelativeYs = [];
 var totalPathLength = 0;
 
 function buildTimelinePath() {
@@ -574,7 +570,6 @@ function buildTimelinePath() {
     var y = nodeRect.top - timelineRect.top + nodeRect.height / 2;
 
     points.push({ x: x, y: y });
-    nodeRelativeYs.push(y);
 
     nodeAbsoluteYs.push(nodeRect.top + window.scrollY + nodeRect.height / 2);
   });
