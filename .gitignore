@@ -21,3 +21,5 @@ node_modules/
 *-ai-evidence.zip
 conversations/
 artifacts/
+.DS_Store
+__MACOSX/

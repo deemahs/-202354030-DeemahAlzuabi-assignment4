@@ -1,140 +1,199 @@
-# Deemah Alzuabi — Personal Portfolio
+# Personal Portfolio Website — Assignment 4
 
-## Project Overview
+## Student Information
 
-This personal portfolio website was developed for Assignment 3 – Advanced Functionality. It builds on Assignments 1 and 2 by introducing external API integration, advanced JavaScript logic, state management, and performance improvements.
+- **Name:** Deemah Alzuabi
+- **Student ID:** 202354030
+- **Course:** SWE 363 — Web Engineering
+- **Assignment:** Assignment 4
 
-The portfolio showcases my academic background, technical skills, and selected projects.
+## 1. Project Overview
 
-## Featured Projects
+This project is a personal portfolio website developed as part of SWE 363. It presents my academic background, technical skills, projects, professional experiences, and research interests.
 
-- **Badelna:** A course section swapping application designed to help students manage section swap requests.
-- **Flowly:** An AI-powered student assistant developed during a summer research experience.
-- **Fayidh:** A surplus resource sharing platform developed for SWE 363. It allows organizations to share surplus materials and resources with students and businesses for commercial or non-profit purposes.
-- **Student Social Media Analysis:** A beginner-level Python data analysis project exploring students' social media usage patterns.
+Assignment 4 builds upon my previous portfolio by improving its visual design, interactivity, usability, code quality, and documentation.
 
-## Features
+My goal was to create a professional, elegant, and user-friendly portfolio that reflects my personality and interests while applying the web development concepts learned throughout the course.
 
-- Responsive portfolio design.
-- Dark and light mode with persistent theme preferences.
+## 2. Features
+
+### Personal and Visual Features
+
+- Redesigned color palette and typography.
+- Light and dark mode with saved theme preferences.
+- AI-generated personal character with visual effects and animation.
+- Smooth background transitions between sections.
+- Interactive academic and professional journey timeline.
+- Downloadable CV in PDF format.
+- Contact information displayed alongside the contact form.
+
+### Functional Features
+
 - Project filtering by technology.
-- Alphabetical project sorting (A–Z and Z–A).
-- Project filtering by skill level.
-- GitHub REST API integration.
-- Display of selected public GitHub repositories.
-- API loading states, error handling, and retry functionality.
-- Contact form validation.
-- Back-to-top button with smooth scrolling.
-- Lazy loading and asynchronous decoding for project images.
-- Dynamic copyright year.
+- Project filtering by difficulty level.
+- Alphabetical project sorting.
+- Dynamic GitHub repository integration using the GitHub REST API.
+- GitHub repository statistics, including loaded repositories, total stars, and total forks.
+- GitHub API error handling.
+- Contact form validation and feedback.
+- Responsive navigation menu.
+- Back-to-top button.
 
-## Technologies Used
+## 3. Technologies Used
 
-- HTML5
-- CSS3
-- JavaScript
-- Git and GitHub
-- GitHub REST API
-- Browser localStorage
+| Technology | Purpose |
+|---|---|
+| HTML5 | Website structure and content |
+| CSS3 | Styling, layouts, animations, and responsive design |
+| JavaScript | Interactive functionality and DOM manipulation |
+| SVG | Decorative elements and timeline visualization |
+| GitHub REST API | Retrieving repository information |
+| Local Storage | Saving theme preferences |
+| Git and GitHub | Version control and repository management |
+| ChatGPT | Technical guidance, image generation, debugging, and documentation |
 
-## Project Structure
+## 4. Project Structure
 
-```text
-202354030-DeemahAlzuabi-assignment3/
+```
+assignment4/
 ├── index.html
 ├── css/
-│   └── style.css
+│   └── styles.css
 ├── js/
 │   └── script.js
 ├── assets/
-│   ├── Badelna.png
-│   └── Flowly.png
+│   ├── images/
+│   │   ├── personal-character.png
+│   │   ├── Badelna.png
+│   │   └── Flowly.png
+│   └── documents/
+│       └── CV.pdf
 ├── docs/
-│   ├── ai-usage-report.md
-│   └── technical-documentation.md
-├── README.md
-└── .gitignore
+│   ├── technical-documentation.md
+│   └── ai-usage-report.md
+├── .gitignore
+└── README.md
 ```
 
-## Setup Instructions
+## 5. Setup and Installation
 
-1. Clone or download the repository from GitHub.
-2. Open the project folder in Visual Studio Code.
-3. Open `index.html` using the Live Server extension.
-4. Make sure an internet connection is available for GitHub API requests.
-5. Explore the portfolio and its interactive features.
+### Requirements
 
-No additional package installation, backend server, database, or API key is required.
+- A modern web browser.
+- Visual Studio Code or another code editor.
+- Git, if cloning the repository.
+- An internet connection for GitHub API functionality.
 
-## API Integration
+No additional packages, frameworks, or backend installation are required.
 
-The website integrates the GitHub REST API to dynamically fetch public repository information.
+### Step 1: Clone the Repository
 
-**API Endpoint:**
+Copy the repository URL from GitHub and run:
 
-`https://api.github.com/users/deemahs/repos?sort=updated&per_page=6`
+```bash
+git clone <repository-url>
+```
 
-JavaScript uses `fetch()` and `async/await` to request repository data.
+### Step 2: Open the Project
 
-The application filters the API response to display only selected public repositories.
+Open the downloaded project folder in Visual Studio Code.
 
-Each repository card displays its name, description, programming language, and a link to GitHub.
+### Step 3: Run the Website
 
-If an API request fails, the website displays a user-friendly error message and provides a retry option.
+**Option 1 — Live Server (Recommended)**
 
-## Complex Logic
+1. Install the Live Server extension in Visual Studio Code.
+2. Open `index.html`.
+3. Right-click and select **Open with Live Server**.
+4. The website will open in your browser.
 
-The website uses advanced JavaScript logic to filter and sort projects.
+**Option 2 — Open Directly**
 
-Visitors can filter projects by technology, including JavaScript, Python, and Figma.
+Open `index.html` directly in a web browser.
 
-Projects can also be filtered by skill level: Beginner, Intermediate, or Advanced.
+## 6. User Guide
 
-The sorting dropdown allows visitors to arrange projects alphabetically in ascending or descending order.
+| Feature | How to Use |
+|---|---|
+| Navigation | Use the navigation bar to move between sections. |
+| Theme Switch | Click the theme button to switch between light and dark mode. |
+| Download CV | Click the Download CV button on the home page. |
+| Journey Timeline | Scroll through the Journey section to explore my experiences. |
+| Technology Filtering | Select a technology to display matching projects. |
+| Level Filtering | Select a difficulty level from the dropdown menu. |
+| Project Sorting | Select an alphabetical sorting option. |
+| GitHub Repositories | Explore the displayed repositories and follow their GitHub links. |
+| GitHub Statistics | View the statistics calculated from the selected repositories. |
+| Contact Form | Enter the required information and submit the form for validation. |
+| Back to Top | Click the arrow button to return to the top of the page. |
 
-These features work together through the `updateProjects()` function, which updates project visibility, order, and status messages.
+## 7. Code Quality and Performance
 
-## State Management
+The project follows a structured approach to web development by separating HTML, CSS, and JavaScript into dedicated files.
 
-The website uses browser `localStorage` to save the visitor's preferred theme.
+The implementation includes:
 
-When a visitor switches between dark and light mode, JavaScript updates the website's appearance and stores the selected preference.
-
-The saved theme is restored when the website is reopened.
-
-## Contact Form Validation
-
-The contact form checks that the name, email address, and message fields are completed and that the email address has a valid format.
-
-JavaScript displays appropriate validation feedback.
-
-The form is a demonstration and does not send actual messages.
-
-## Performance Optimization
-
-The website includes:
-
+- Reusable CSS classes and variables.
+- Logical code organization and descriptive comments.
+- Responsive layouts using CSS Grid and Flexbox.
 - Lazy loading for project images.
-- Asynchronous image decoding.
-- Responsive layouts using CSS Grid, Flexbox, and media queries.
-- Reusable JavaScript functions to reduce duplicated logic.
+- Asynchronous image decoding for project images.
+- Efficient animation scheduling using `requestAnimationFrame()`.
+- Passive scroll event listeners.
+- GitHub API response validation and error handling.
+- Reduced-motion support for animations.
 
-Performance and compatibility can be evaluated using Lighthouse and browser testing.
+Additional performance improvements were explored, including WebP image compression and reducing unnecessary DOM operations.
 
-## AI Usage
+## 8. Troubleshooting
 
-ChatGPT and Claude were used to support the development and improvement of Assignment 3.
+| Issue | Possible Solution |
+|---|---|
+| Website does not open | Verify that `index.html` exists and open it using Live Server. |
+| Images do not appear | Check image paths, filenames, and file extensions. |
+| CV does not download | Verify that `CV.pdf` exists inside `assets/documents/`. |
+| GitHub repositories do not load | Check the internet connection and GitHub API availability. |
+| Styling does not appear | Verify the path to `css/styles.css`. |
+| Interactive features do not work | Verify the JavaScript file path and check the browser console. |
 
-**ChatGPT** was used to understand assignment requirements, implement new features, integrate the GitHub API, review code, and prepare documentation.
+## 9. AI Integration
 
-**Claude** was used for debugging, checking possible conflicts between features, reviewing functionality, and correcting errors.
+ChatGPT was used as a supporting tool throughout Assignment 4 for:
 
-AI-generated suggestions were reviewed and adapted to the existing portfolio implementation.
+- Personal character image generation.
+- UI/UX and color palette suggestions.
+- CSS positioning and animation guidance.
+- Timeline development.
+- CV download functionality.
+- Contact section layout.
+- GitHub statistics.
+- Debugging and code review.
+- Performance optimization guidance.
+- Documentation support.
 
-Detailed information about AI assistance, modifications, and verification is available in the AI Usage Report (docs/ai-usage-report.md).
+I independently researched portfolio designs, selected the final visual style, prepared the website content, and made the final implementation decisions.
 
-Complete AI conversations and original AI-generated artifacts are submitted separately through Blackboard.
+Detailed AI usage, modifications, learning outcomes, and the required declaration are documented in [AI Usage Report](docs/ai-usage-report.md).
 
-## Technical Documentation
+## 10. Documentation
 
-For implementation details, see the Technical Documentation (docs/technical-documentation.md).
+Additional documentation is available in the following files:
+
+- [Technical Documentation](docs/technical-documentation.md)
+- [AI Usage Report](docs/ai-usage-report.md)
+
+## 11. Future Improvements
+
+Possible future improvements include:
+
+- Connecting the contact form to a backend service.
+- Adding more academic and professional projects.
+- Further improving accessibility and performance.
+- Expanding the portfolio as my professional experience develops.
+
+## Author
+
+**Deemah Alzuabi**
+
+Computer Science Undergraduate Student  
+King Fahd University of Petroleum and Minerals (KFUPM)
