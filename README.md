@@ -15,6 +15,13 @@ Assignment 4 builds upon my previous portfolio by improving its visual design, i
 
 My goal was to create a professional, elegant, and user-friendly portfolio that reflects my personality and interests while applying the web development concepts learned throughout the course.
 
+## Live Deployment
+
+The portfolio is deployed using GitHub Pages
+and is publicly accessible.
+View Live Portfolio : 
+https://deemahs.github.io/-202354030-DeemahAlzuabi-assignment4/
+
 ## 2. Features
 
 ### Personal and Visual Features

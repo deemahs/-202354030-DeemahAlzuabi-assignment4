@@ -4,445 +4,297 @@
 
 - **Name:** Deemah Alzuabi
 - **Student ID:** 202354030
+- **University:** King Fahd University of Petroleum and Minerals (KFUPM)
 - **Course:** SWE 363 — Web Engineering
-- **Assignment:** Assignment 4
+- **Assignment:** Assignment 4 — Personal Web Application
 
-## 1. Introduction
+## 1. Project Overview
 
-Assignment 4 focuses on enhancing the personal portfolio developed in previous assignments by improving its functionality, visual design, interactivity, usability, performance, and documentation.
+This project is an enhanced version of my personal portfolio developed throughout SWE 363. Assignment 4 focuses on improving visual design, interactivity, usability, code quality, performance, and documentation.
 
-The website was developed using HTML, CSS, and vanilla JavaScript without relying on external front-end frameworks.
-
-The main objective was to create a professional portfolio that combines personal information, academic experiences, technical projects, and interactive features within a consistent and responsive interface.
+The website presents my academic background, technical skills, projects, research interests, and professional experiences through a responsive and interactive interface.
 
 ## 2. System Architecture
 
-The application follows a client-side architecture consisting of three main layers.
+The website follows a single-page, client-side architecture without external frameworks or backend dependencies.
 
-| Layer | Technology | Responsibility |
-|---|---|---|
-| Structure | HTML5 | Defines the website sections and content. |
-| Presentation | CSS3 | Controls styling, layouts, colors, responsiveness, and animations. |
-| Behavior | JavaScript | Handles user interactions, filtering, sorting, API requests, and dynamic updates. |
-
-External repository information is retrieved from the GitHub REST API.
-
-```
-User
-  |
-  v
-HTML Interface
-  |
-  +-- CSS Styling and Animations
-  |
-  +-- JavaScript Functionality
-        |
-        +-- DOM Manipulation
-        +-- Local Storage
-        +-- GitHub REST API
-```
-
-The website does not require a dedicated backend server or database.
-
-## 3. File Organization
-
-| File or Directory | Responsibility |
+| Technology | Responsibility |
 |---|---|
-| `index.html` | Website structure, sections, and content. |
-| `css/styles.css` | Styling, animations, responsive layouts, and themes. |
-| `js/script.js` | Interactive functionality and API integration. |
-| `assets/images/` | Personal character and project images. |
-| `assets/documents/` | Downloadable CV document. |
-| `docs/` | Technical documentation and AI usage report. |
-| `README.md` | Project overview, setup instructions, and user guide. |
-| `.gitignore` | Excludes unnecessary files from version control. |
+| HTML5 | Website structure and semantic content |
+| CSS3 | Styling, layouts, themes, and animations |
+| Vanilla JavaScript | User interactions and dynamic functionality |
+| SVG | Decorative graphics and timeline visualization |
+| GitHub REST API | Retrieving public repository information |
+| localStorage | Saving theme preferences |
 
-Separating responsibilities into different files improves readability, maintainability, and future development.
+The separation of HTML, CSS, and JavaScript improves code readability and maintainability while keeping the project simple.
 
-## 4. Visual Design and UI/UX Improvements
-
-### 4.1 Color Palette
-
-I independently researched existing portfolio websites to explore different color combinations and visual styles.
-
-The previous color palette was redesigned because some colors appeared too dark or visually harsh.
-
-The updated design uses softer shades of pink, black, gray, white, and gold to create a professional and elegant appearance.
-
-CSS variables are used to maintain consistent colors throughout the website and support theme switching.
-
-### 4.2 Typography
-
-Typography was selected to improve readability and establish a clear visual hierarchy between headings, descriptions, labels, and buttons.
-
-The design aims to balance a professional academic appearance with personal creativity.
-
-### 4.3 Background Color Transitions
-
-Different website sections use different background colors. Initially, the transitions between these sections appeared too sharp.
-
-CSS linear gradients were introduced to create smoother transitions.
-
-The gradient starts with the background color of the previous section and gradually transitions into the background color of the current section.
-
-This improves visual continuity without requiring additional JavaScript or animation libraries.
-
-## 5. Technical Implementation
-
-### 5.1 Theme Management
-
-The website supports light and dark modes.
-
-JavaScript handles the theme button interaction, while CSS variables control the appearance of the website under each theme.
-
-The selected theme is stored using `localStorage`, allowing the website to remember the user's preference after refreshing or reopening the page.
-
-**Technical concepts:**
-
-- CSS custom properties.
-- JavaScript event listeners.
-- DOM class manipulation.
-- Browser Local Storage.
-
-### 5.2 Personal Character
-
-An AI-generated cartoon-style character was added to the About Me section to represent my personality without displaying my actual photograph.
-
-The character is surrounded by decorative SVG circles, glow effects, and sparkle elements.
-
-CSS positioning, transformations, transitions, and animations are used to control the visual presentation.
-
-JavaScript is used to support scroll-based character interactions in the submitted project version.
-
-The decorative elements are separated from the main image to allow independent styling and positioning.
-
-### 5.3 Interactive Journey Timeline
-
-The Journey section presents my academic, leadership, professional, and research experiences in chronological order.
-
-Each milestone contains:
-
-- A date.
-- An experience category.
-- A title.
-- A description.
-- A visual milestone node.
-
-The timeline implementation combines HTML, CSS, SVG, and JavaScript.
-
-JavaScript calculates the positions of milestone nodes and constructs an SVG path connecting them.
-
-As the user scrolls through the section, the timeline progress is updated, and milestone elements receive active or revealed states.
-
-CSS controls the appearance of these states, including visual transitions and highlighted nodes.
-
-**Technical concepts:**
-
-- SVG path manipulation.
-- DOM positioning.
-- `getBoundingClientRect()`.
-- Scroll event handling.
-- CSS transitions.
-- `requestAnimationFrame()`.
-- `ResizeObserver`.
-
-The timeline layout is recalculated when necessary to account for changes in screen dimensions.
-
-### 5.4 CV Download Functionality
-
-The website provides a Download CV button in the Home section.
-
-The CV is stored as a PDF file inside:
+## 3. File Structure
 
 ```
-assets/documents/CV.pdf
+assignment4/
+├── index.html
+├── css/
+│   └── styles.css
+├── js/
+│   └── script.js
+├── assets/
+│   ├── images/
+│   └── documents/
+│       └── CV.pdf
+├── docs/
+│   ├── technical-documentation.md
+│   └── ai-usage-report.md
+├── .gitignore
+└── README.md
 ```
 
-The HTML `download` attribute allows the browser to download the linked PDF using the specified filename.
+The stylesheet and JavaScript file are organized into sections with descriptive comments to make individual components easier to locate and maintain.
 
-This functionality does not require JavaScript, a backend server, or an external file storage service.
+## 4. Visual Design
 
-### 5.5 Project Filtering
+### 4.1 Color Palette and Typography
 
-Project cards contain HTML data attributes that describe their technologies, names, and difficulty levels.
+I researched different portfolio websites and redesigned my previous color palette to create a softer, more elegant, and professional appearance.
 
-JavaScript reads these attributes and compares them with the user's selected filters.
+The updated palette combines muted pink, gray, black, white, and gold.
 
-Technology filtering and difficulty-level filtering work together to determine which projects should be displayed.
+CSS custom properties are used to maintain consistent colors throughout the website and simplify theme management.
 
-The filtering status is updated to provide feedback about the displayed projects.
+Georgia is used for headings, while system sans-serif fonts are used for body text to improve readability without requiring external font downloads.
 
-**Technical concepts:**
+### 4.2 Background Transitions
 
-- HTML data attributes.
-- JavaScript arrays.
-- Event listeners.
-- DOM manipulation.
-- Conditional statements.
+CSS linear gradients are used to create smooth transitions between sections with different background colors.
 
-### 5.6 Project Sorting
+This improves visual continuity and avoids sharp boundaries between sections.
 
-The website supports the following sorting options:
+## 5. Feature Implementation
 
-- Default order.
-- Name: A to Z.
-- Name: Z to A.
+### 5.1 Navigation System
 
-JavaScript sorts project elements according to their names and updates their order within the project container.
+The website uses anchor links to navigate between sections.
 
-Sorting works together with the existing filtering functionality.
+On smaller screens, the navigation changes into a hamburger menu. JavaScript controls its visibility and updates accessibility attributes.
 
-### 5.7 GitHub REST API Integration
+### 5.2 Light and Dark Mode
 
-The website retrieves public repository information using the GitHub REST API.
+CSS variables define the colors used in both themes.
 
-The implementation uses JavaScript's `fetch()` function with asynchronous programming.
+JavaScript toggles the `dark-mode` class and stores the selected theme in `localStorage`, allowing the preference to persist after refreshing the page.
 
-The general workflow is:
+### 5.3 Personal Character Animation
 
-1. Display a loading message.
-2. Send a request to the GitHub REST API.
-3. Validate the API response.
-4. Convert the response into JavaScript data.
-5. Filter the repositories according to the selected repository names.
-6. Calculate repository statistics.
-7. Create repository cards dynamically.
-8. Display feedback if an error occurs.
+An AI-generated character was added to the About Me section to represent my personality without displaying my actual photograph.
 
-Repository cards are generated using DOM manipulation rather than manually writing each card in HTML.
+The character includes decorative SVG circles, glow effects, and sparkles.
 
-Using `textContent` to display repository information helps prevent external text from being interpreted as HTML.
+CSS positioning, transformations, and animations control its appearance, while JavaScript supports scroll-based visual effects.
 
-### 5.8 GitHub Statistics
+### 5.4 Interactive Journey Timeline
 
-Assignment 4 enhances the existing GitHub integration by displaying additional repository statistics.
+The timeline presents my academic, leadership, professional, and research experiences in chronological order.
+
+Each milestone contains a date, category, title, description, and visual node.
+
+The implementation uses:
+
+- HTML to structure the milestones.
+- CSS to control positioning, colors, and transitions.
+- SVG to display the timeline path.
+- JavaScript to calculate scroll progress and activate milestones.
+
+The timeline uses `getBoundingClientRect()` to calculate element positions and `requestAnimationFrame()` to coordinate animation updates.
+
+`ResizeObserver` helps recalculate the timeline layout when its dimensions change.
+
+### 5.5 CV Download
+
+The CV is stored locally as a PDF document.
+
+```html
+<a href="assets/documents/CV.pdf"
+   download="Deemah_Alzuabi_CV.pdf">
+    Download CV
+</a>
+```
+
+The HTML `download` attribute allows visitors to download the document without requiring JavaScript or a backend service.
+
+### 5.6 Project Filtering and Sorting
+
+Project cards use HTML data attributes to store information about their technologies, names, and difficulty levels.
+
+| Attribute | Purpose |
+|---|---|
+| `data-technologies` | Technology filtering |
+| `data-level` | Difficulty-level filtering |
+| `data-name` | Alphabetical sorting |
+
+The `updateProjects()` function combines filtering and sorting to keep the displayed results consistent.
+
+The original project order is preserved so users can return to the default arrangement.
+
+### 5.7 GitHub API Integration
+
+The website retrieves public repositories using the GitHub REST API and JavaScript's asynchronous `fetch()` function.
+
+The implementation follows these steps:
+
+1. Request repository data.
+2. Validate the API response.
+3. Filter the selected repositories.
+4. Calculate repository statistics.
+5. Generate repository cards dynamically.
+6. Display appropriate feedback if an error occurs.
+
+GitHub statistics are calculated from the selected repositories.
 
 | Statistic | Calculation |
 |---|---|
-| Repositories Loaded | Number of repositories in the filtered array. |
-| Total Stars | Sum of `stargazers_count` values. |
-| Total Forks | Sum of `forks_count` values. |
+| Repositories Loaded | `filteredRepos.length` |
+| Total Stars | Sum of `stargazers_count` using `reduce()` |
+| Total Forks | Sum of `forks_count` using `reduce()` |
 
-The number of repositories is calculated using the array's `length` property.
+The statistics reuse the existing API response without requiring an additional request.
 
-The total number of stars and forks is calculated using the JavaScript `reduce()` method.
+### 5.8 Contact Section
 
-The statistics reuse the existing GitHub API response instead of making an additional API request.
+The contact section uses a two-column layout containing personal contact information and a contact form.
 
-These statistics represent the selected repositories displayed in the portfolio, not necessarily all repositories associated with the GitHub account.
+JavaScript validates the name, email address, and message fields before displaying feedback.
 
-### 5.9 Contact Section
+The contact form is a front-end demonstration and does not send messages to a backend server.
 
-The Contact section was enhanced by adding personal contact information alongside the contact form.
+### 5.9 Back-to-Top Button
 
-The layout includes:
+JavaScript monitors the scroll position and displays a button after the user scrolls down the page.
 
-- Email address.
-- LinkedIn profile.
-- Location.
-- Contact form.
-
-The contact information and form are organized into separate layout areas to improve clarity and usability.
-
-JavaScript provides client-side validation and feedback for the form fields.
-
-The form is a front-end demonstration and does not send messages to a backend server.
-
-### 5.10 Back-to-Top Button
-
-The back-to-top button provides convenient navigation on longer pages.
-
-JavaScript monitors the user's scroll position and controls the visibility of the button.
-
-When clicked, the button returns the user to the top of the page.
+Clicking the button returns the user to the top of the website.
 
 ## 6. Responsive Design
 
-The website uses responsive design techniques to support different screen sizes.
+The website uses CSS Grid, Flexbox, flexible dimensions, and media queries to adapt to different screen sizes.
 
-The implementation includes:
-
-- CSS Grid for structured layouts.
-- Flexbox for alignment and flexible arrangements.
-- Media queries for screen-size adjustments.
-- Flexible image dimensions.
-- Responsive navigation.
-- Adaptive timeline and contact layouts.
-
-The objective is to maintain readability and usability across desktop, tablet, and mobile devices.
-
-## 7. Code Quality
-
-The following practices are used to improve code quality:
-
-| Practice | Purpose |
+| Device | Layout |
 |---|---|
-| Separation of HTML, CSS, and JavaScript | Improves organization and maintainability. |
-| Descriptive variable and class names | Makes code easier to understand. |
-| Logical code sections | Helps locate specific functionality. |
-| Comments | Explain important components and implementation decisions. |
-| Reusable CSS classes | Reduce repeated styling rules. |
-| CSS variables | Maintain consistent colors and themes. |
-| Reusable JavaScript functions | Reduce unnecessary duplication. |
-| API response validation | Helps handle unexpected responses. |
+| Desktop | Multi-column layouts and full navigation |
+| Tablet | Adjusted spacing and stacked layouts where necessary |
+| Mobile | Hamburger navigation and single-column content |
 
-Unused variables, inconsistent indentation, unnecessary files, and repeated operations were identified as areas for further code review and cleanup.
+The objective is to maintain readability, accessibility, and usability across devices.
 
-## 8. Performance Optimization
+## 7. Accessibility
 
-### 8.1 Image Loading
-
-Project images use lazy loading to avoid loading images unnecessarily before they are needed.
-
-Asynchronous image decoding is also used for project images to reduce interference with page rendering.
-
-WebP image compression was explored as an additional optimization to reduce image file sizes while maintaining acceptable visual quality.
-
-### 8.2 Animation Performance
-
-The website uses `requestAnimationFrame()` to coordinate animation updates with the browser's rendering process.
-
-This is particularly useful for scroll-based animations.
-
-CSS transformations and opacity changes are used for visual effects.
-
-### 8.3 Scroll Event Handling
-
-Passive scroll event listeners are used where appropriate.
-
-Animation scheduling helps avoid unnecessary repeated updates during scrolling.
-
-### 8.4 API Efficiency
-
-GitHub repository statistics are calculated using the existing repository data.
-
-This avoids an additional API request solely for calculating statistics.
-
-### 8.5 Reduced Motion
-
-The website includes reduced-motion support to accommodate users who prefer fewer animations.
-
-This contributes to accessibility and a more comfortable browsing experience.
-
-## 9. Accessibility
-
-Accessibility considerations include:
+The website includes several accessibility considerations:
 
 - Semantic HTML elements.
-- Alternative text for images.
+- Descriptive alternative text for images.
 - Labels for form fields.
-- Accessible button labels.
-- ARIA attributes for navigation and status messages.
-- Visual feedback for interactive elements.
-- Reduced-motion support.
-- Responsive text and layouts.
+- Accessible button labels and ARIA attributes.
+- Keyboard navigation support.
+- Dynamic status messages.
+- Reduced-motion support for animations.
 
-These features aim to make the website easier to navigate and understand.
+The `prefers-reduced-motion` setting helps accommodate users who prefer fewer visual animations.
 
-## 10. Testing and Verification
+## 8. Code Quality
 
-The following test cases are used to evaluate the website's functionality.
+The project follows these code quality practices:
+
+- Separating HTML, CSS, and JavaScript into dedicated files.
+- Using descriptive variable, function, and class names.
+- Organizing code into logical sections.
+- Adding comments to explain important functionality.
+- Using reusable CSS classes and variables.
+- Validating API responses and handling errors.
+- Reviewing unnecessary code and inconsistent formatting.
+
+These practices improve readability and simplify future maintenance.
+
+## 9. Performance Optimization
+
+| Technique | Purpose |
+|---|---|
+| Lazy loading | Delays loading off-screen project images. |
+| Asynchronous image decoding | Reduces interference with page rendering. |
+| `requestAnimationFrame()` | Coordinates animation updates with browser rendering. |
+| Passive event listeners | Supports efficient scroll event handling. |
+| Resize debouncing | Reduces unnecessary layout recalculations. |
+| `ResizeObserver` | Detects changes in timeline dimensions. |
+| API data reuse | Avoids additional requests for repository statistics. |
+| System fonts | Avoids external font downloads. |
+
+
+
+## 10. Testing and Compatibility
+
+The website is designed for modern browsers, including Chrome, Safari, Firefox, and Edge.
+
+The following test cases are used to evaluate its functionality.
 
 | Test Case | Expected Result |
 |---|---|
-| Navigation links | Navigate to the corresponding section. |
-| Theme switching | Change between light and dark mode. |
-| Theme persistence | Retain the selected theme after refreshing. |
-| CV download | Download the correct PDF document. |
-| Character animation | Display the character and its visual effects correctly. |
-| Journey timeline | Update timeline progress during scrolling. |
-| Technology filtering | Display projects matching the selected technology. |
-| Level filtering | Display projects matching the selected difficulty level. |
-| Combined filtering | Apply technology and level filters together. |
-| Project sorting | Arrange projects according to the selected order. |
-| GitHub API | Retrieve and display selected repositories. |
-| GitHub statistics | Display values calculated from repository data. |
-| API failure | Display appropriate error feedback. |
-| Contact form validation | Identify missing or invalid input. |
-| Back-to-top button | Return the user to the top of the page. |
-| Responsive layout | Maintain a usable layout at different screen sizes. |
-
-### Browser Compatibility
-
-The website is designed for modern browsers supporting HTML5, CSS3, JavaScript, and the Fetch API.
-
-Recommended browser testing includes:
-
-- Google Chrome.
-- Safari.
-- Mozilla Firefox.
-- Microsoft Edge.
-
-Recommended screen sizes include desktop, tablet, and mobile layouts.
-
-Actual browser compatibility and performance results should be recorded after completing the tests.
+| Navigation | Opens the corresponding section. |
+| Mobile menu | Opens and closes correctly. |
+| Theme switching | Changes the theme and preserves the preference. |
+| CV download | Downloads the correct PDF file. |
+| Character animation | Displays visual effects correctly. |
+| Journey timeline | Updates progress while scrolling. |
+| Project filtering | Displays matching projects. |
+| Project sorting | Arranges projects in the selected order. |
+| GitHub API | Retrieves and displays selected repositories. |
+| GitHub statistics | Calculates the correct statistics. |
+| API error handling | Displays appropriate error feedback. |
+| Contact form | Validates user input and displays feedback. |
+| Back-to-top button | Returns the user to the top. |
+| Responsive design | Adapts to different screen sizes. |
 
 ## 11. Known Limitations
 
-- GitHub repository information depends on internet connectivity and API availability.
-- GitHub API requests are subject to rate limits.
-- Repository statistics only represent the selected repositories returned by the API.
-- The contact form performs client-side validation but does not send messages through a backend service.
-- Animation behavior may vary depending on device performance and browser settings.
+- GitHub integration requires an internet connection and is subject to API rate limits.
+- GitHub statistics represent the selected repositories returned by the API.
+- The contact form performs client-side validation only.
+- Animation performance may vary depending on the device and browser.
+- The website does not provide offline functionality.
 
 ## 12. User Guide
 
-### Getting Started
+| Feature | Instructions |
+|---|---|
+| Navigation | Select a section from the navigation bar. |
+| Theme | Click the theme button to switch between light and dark mode. |
+| CV | Click Download CV on the home page. |
+| Journey | Scroll through the timeline to explore my experiences. |
+| Projects | Use the technology and difficulty-level filters. |
+| Sorting | Select an alphabetical sorting option. |
+| GitHub | Explore repository cards, statistics, and repository links. |
+| Contact | Use the provided email, LinkedIn link, or demonstration form. |
+| Back to Top | Click the arrow button to return to the beginning of the page. |
 
-Open the website using a modern browser or run it locally using Live Server.
+Setup instructions and troubleshooting information are available in the [README](../README.md).
 
-### Navigation
+## 13. Assignment Evolution
 
-Use the navigation bar to access Home, About, Journey, Projects, GitHub, and Contact.
+| Assignment | Main Contributions |
+|---|---|
+| Assignment 1 | HTML structure and portfolio content. |
+| Assignment 2 | CSS styling and responsive design. |
+| Assignment 3 | JavaScript functionality, project filtering, sorting, and GitHub API integration. |
+| Assignment 4 | Visual redesign, character animation, interactive timeline, CV download, GitHub statistics, contact layout, and documentation improvements. |
 
-### Changing the Theme
+## 14. AI Integration
 
-Click the theme button to switch between light and dark mode. The selected preference is saved locally.
+ChatGPT was used for image generation, technical guidance, UI/UX suggestions, debugging, code review, performance optimization guidance, and documentation support.
 
-### Downloading the CV
+I independently researched portfolio designs, selected the final visual style, prepared the personal content, and made the final implementation decisions.
 
-Click the Download CV button in the Home section to download the PDF document.
+Detailed AI usage, learning outcomes, modifications, and the required declaration are available in the [AI Usage Report](ai-usage-report.md).
 
-### Exploring the Journey
+## 15. Conclusion
 
-Scroll through the Journey section to view academic and professional milestones and their visual effects.
+Assignment 4 helped me improve my portfolio by combining technical functionality, personal creativity, and professional design.
 
-### Exploring Projects
+Through this assignment, I developed a better understanding of responsive layouts, CSS animations, JavaScript interactions, API integration, code quality, and technical documentation.
 
-Use the technology buttons and difficulty-level dropdown to filter projects.
-
-Use the sorting dropdown to change the order of project cards.
-
-### Viewing GitHub Repositories
-
-Navigate to the GitHub section to view selected repositories and their statistics.
-
-Repository links provide access to the corresponding GitHub pages.
-
-### Contact Information
-
-Use the provided email address or LinkedIn link to contact me directly.
-
-The contact form demonstrates client-side input validation.
-
-### Returning to the Top
-
-Click the back-to-top button when it becomes visible.
-
-## 13. AI Integration
-
-ChatGPT was used for technical guidance, image generation, UI/UX suggestions, debugging, code review, performance optimization guidance, and documentation.
-
-I independently researched portfolio designs, selected the website content and visual style, and made the final development decisions.
-
-AI suggestions were reviewed against the existing project structure and adapted according to the assignment requirements.
-
-Complete AI usage details, benefits, challenges, learning outcomes, modifications, and the required declaration are provided in [AI Usage Report](ai-usage-report.md).
-
-## 14. Conclusion
-
-Assignment 4 provided an opportunity to improve my existing portfolio by combining technical functionality with personal creativity and professional design.
-
-The project helped me develop a better understanding of responsive layouts, CSS animations, JavaScript interactions, API integration, code organization, performance considerations, and technical documentation.
-
-The portfolio provides a foundation that can continue to develop alongside my academic and professional experience.
+The website provides a foundation for presenting my academic and professional experiences and can be expanded as I develop new skills and complete additional projects.
